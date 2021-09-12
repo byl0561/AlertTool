@@ -77,7 +77,7 @@ public class HttpJsonUtil {
      * @Description 发送请求
      * @Date 2021/8/18 2:17 下午
      * @Param [httpType, path, param] Http方法，请求路径，参数
-     * @return com.bytedance.kunlun.connector.KunlunResponse
+     * @return HTTPResponse
      **/
     public static HTTPResponse send(HTTPRequestTypeEnum httpType, String path, Object param, Object body, List<Header> headers) {
         HTTPResponse response = null;
