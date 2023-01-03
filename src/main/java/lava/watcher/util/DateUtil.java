@@ -11,16 +11,14 @@ import java.util.Date;
  * @Description:
  */
 public class DateUtil {
-    private static final SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
     private DateUtil(){
     }
 
-    public static String format(@NonNull Date date){
-        return f.format(date);
+    public static String format(@NonNull Date date, String formater){
+        return new SimpleDateFormat(formater).format(date);
     }
 
-    public static String format(long timeStamp){
-        return format(new Date(timeStamp));
+    public static String format(long timeStamp, String formater){
+        return format(new Date(timeStamp), formater);
     }
 }

@@ -11,8 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ImmediateAlertRule implements AlertRule{
     @Override
-    public boolean isEffective(Record<?> record) {
+    public Record<?> alertRecord(Record<?> record) {
         log.info("[ImmediateAlertRule] rule pass, indicator:{}, value:{}", record.getIndicator(), record.getValue());
-        return true;
+        return record;
     }
 }

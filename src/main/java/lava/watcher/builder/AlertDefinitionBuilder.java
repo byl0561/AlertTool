@@ -153,27 +153,13 @@ public class AlertDefinitionBuilder {
                 alertRule = new OperatorAlertRule<>(operationCondition);
                 break;
             case TIME_RANGE:
-                alertRule = new TimeRangeAlertRule(seconds, counts, recordBase, r -> {
-                    for (AlertLimiter alertLimiter : buildAlertLimiters()){
-                        if (!alertLimiter.limit(r)){
-                            return;
-                        }
-                    }
-                    alertExecutors.forEach(alertExecutor -> alertExecutor.execute(r));
-                });
+                alertRule = new TimeRangeAlertRule(seconds, counts, recordBase);
                 break;
             case OPERATOR_AND_TIME_RANGE:
                 AssertUtil.isTrue(!ValueTypeEnum.NONE.equals(valueTypeEnum));
                 AssertUtil.isTrue(!(ValueTypeEnum.BOOLEAN.equals(valueTypeEnum) && !OperatorEnum.EQUAL.equals(operationCondition.getOperator())));
                 AssertUtil.isTrue(!(ValueTypeEnum.STRING.equals(valueTypeEnum) && !OperatorEnum.EQUAL.equals(operationCondition.getOperator())));
-                alertRule = new OperatorAndTimeRangeMixedAlertRule<>(seconds, counts, recordBase, r -> {
-                    for (AlertLimiter alertLimiter : buildAlertLimiters()){
-                        if (!alertLimiter.limit(r)){
-                            return;
-                        }
-                    }
-                    alertExecutors.forEach(alertExecutor -> alertExecutor.execute(r));
-                }, operationCondition);
+                alertRule = new OperatorAndTimeRangeMixedAlertRule<>(seconds, counts, recordBase, operationCondition);
                 break;
         }
         return alertRule;

@@ -6,6 +6,7 @@ import lava.watcher.model.Record;
 import lava.watcher.rule.AlertRule;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Auther: lava
@@ -25,14 +26,15 @@ public class DefaultAlertHandler implements AlertHandler{
 
     @Override
     public void report(Record<?> record) {
-        if (!alertRule.isEffective(record)){
+        Record<?> alertRecord = alertRule.alertRecord(record);
+        if (Objects.isNull(alertRecord)){
             return;
         }
         for (AlertLimiter alertLimiter : alertLimiterList){
-            if (!alertLimiter.limit(record)){
+            if (!alertLimiter.limit(alertRecord)){
                 return;
             }
         }
-        alertExecutors.forEach(alertExecutor -> alertExecutor.execute(record));
+        alertExecutors.forEach(alertExecutor -> alertExecutor.execute(alertRecord));
     }
 }

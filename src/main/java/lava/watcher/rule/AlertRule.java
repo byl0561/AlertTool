@@ -8,5 +8,5 @@ import lava.watcher.model.Record;
  * @Description: 报警规则
  */
 public interface AlertRule {
-    boolean isEffective(Record<?> record);
+    Record<?> alertRecord(Record<?> record);
 }

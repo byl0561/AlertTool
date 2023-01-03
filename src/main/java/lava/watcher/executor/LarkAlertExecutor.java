@@ -26,10 +26,11 @@ public class LarkAlertExecutor implements AlertExecutor{
 
     private final String webhookUri;
     private final String ruleName;
+    private final String dateFormater = "yyyy-MM-dd HH:mm:ss";
 
     @Override
     public void execute(Record<?> record) {
-        String message = buildMessage(ruleName, record.getValue().toString(), DateUtil.format(record.getTimeStamp()));
+        String message = buildMessage(ruleName, record.getValue().toString(), DateUtil.format(record.getTimeStamp(), dateFormater));
         HttpJsonUtil.HTTPResponse response = HttpJsonUtil.send(HTTPRequestTypeEnum.POST, webhookUri, null, message, null);
         if (!response.isSuccess()){
             log.error("[LarkAlertExecutor] http request failed: httpCode:{}, error:{}, ruleName:{}, value:{}",

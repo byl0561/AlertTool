@@ -18,34 +18,31 @@ import java.util.Date;
  */
 @Slf4j
 public class TimeRangeAlertRule implements AlertRule, TimeRangeable{
-    public TimeRangeAlertRule(long seconds, long times, @NonNull RecordBase recordBase, @NonNull AlertHandler handler) {
+    public TimeRangeAlertRule(long seconds, long times, @NonNull RecordBase recordBase) {
         this.seconds = seconds;
         this.times = times;
         this.recordBase = recordBase;
-        this.handler = handler;
     }
 
     private final long seconds;
     private final long times;
     private final RecordBase recordBase;
-    private final AlertHandler handler;
-
-    @Override
-    public boolean isEffective(Record<?> record) {
-        TimerUtil.limitedSchedule("#timeRangeAlertRule_" + record.getIndicator(), seconds * 1000, () -> {
-            Collection<Record<?>> result = recordBase.query(record.getIndicator(),
-                    record.getTimeStamp(), record.getTimeStamp() + seconds * 1000);
-            if (result.size() >= times){
-                log.info("[TimeRangeAlertRule] rule schedule active, indicator:{}, value:{}", record.getIndicator(), record.getValue());
-                handler.report(new Record<>(new Date(record.getTimeStamp() + seconds * 1000), record.getIndicator(), new BigDecimal(result.size())));
-            }
-        }, null);
-        log.info("[TimeRangeAlertRule] rule block, indicator:{}, value:{}", record.getIndicator(), record.getValue());
-        return false;
-    }
-
     @Override
     public long getTimeRange() {
         return seconds;
+    }
+
+    @Override
+    public Record<?> alertRecord(Record<?> record) {
+        Collection<Record<?>> result = recordBase.query(record.getIndicator(),
+                record.getTimeStamp() - seconds * 1000, record.getTimeStamp());
+        if (result.size() >= times){
+            log.info("[TimeRangeAlertRule] rule schedule active, indicator:{}, value:{}", record.getIndicator(), record.getValue());
+            return new Record<>(new Date(record.getTimeStamp()), record.getIndicator(), new BigDecimal(result.size()));
+        }
+        else {
+            log.info("[TimeRangeAlertRule] rule block, indicator:{}, value:{}", record.getIndicator(), record.getValue());
+            return null;
+        }
     }
 }

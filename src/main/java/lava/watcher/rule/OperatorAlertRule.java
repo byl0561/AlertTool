@@ -19,19 +19,19 @@ public class OperatorAlertRule<T extends Comparable<T>> implements AlertRule, Op
     private final OperationCondition<T> condition;
 
     @Override
-    public boolean isEffective(@NonNull Record<?> record) {
-        if (condition.isCondition(record)) {
-            log.info("[OperatorAlertRule] rule pass, indicator:{}, value:{}", record.getIndicator(), record.getValue());
-            return true;
-        }
-        else {
-            log.info("[OperatorAlertRule] rule block, indicator:{}, value:{}", record.getIndicator(), record.getValue());
-            return false;
-        }
+    public OperationCondition<?> getOperationCondition() {
+        return condition;
     }
 
     @Override
-    public OperationCondition<?> getOperationCondition() {
-        return condition;
+    public Record<?> alertRecord(Record<?> record) {
+        if (condition.isCondition(record)) {
+            log.info("[OperatorAlertRule] rule pass, indicator:{}, value:{}", record.getIndicator(), record.getValue());
+            return record;
+        }
+        else {
+            log.info("[OperatorAlertRule] rule block, indicator:{}, value:{}", record.getIndicator(), record.getValue());
+            return null;
+        }
     }
 }
