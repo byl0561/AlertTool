@@ -1,8 +1,8 @@
-# AlertWatcher
+# AlertTool
 
 ---
 
-报警监测工具
+告警工具
 
 ---
 
@@ -13,7 +13,7 @@
 
 ### 数据接入
 
-报警工具的入口
+告警工具的入口
 ```
 public class AlertWatcherClient {
     void report(String id);
