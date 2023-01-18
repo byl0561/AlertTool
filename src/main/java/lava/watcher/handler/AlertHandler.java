@@ -1,4 +1,4 @@
-package lava.watcher.alerthandler;
+package lava.watcher.handler;
 
 import lava.watcher.model.Record;
 

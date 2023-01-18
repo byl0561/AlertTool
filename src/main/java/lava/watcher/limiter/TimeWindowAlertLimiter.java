@@ -1,6 +1,6 @@
 package lava.watcher.limiter;
 
-import lava.watcher.alerthandler.AlertHandler;
+import lava.watcher.handler.AlertHandler;
 import lava.watcher.model.Record;
 import lava.watcher.util.TimerUtil;
 import lombok.NonNull;

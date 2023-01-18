@@ -1,9 +1,7 @@
 package lava.watcher.rule;
 
-import lava.watcher.alerthandler.AlertHandler;
 import lava.watcher.model.Record;
 import lava.watcher.storage.RecordBase;
-import lava.watcher.util.TimerUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 

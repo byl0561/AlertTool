@@ -1,4 +1,4 @@
-package lava.watcher.alerthandler;
+package lava.watcher.handler;
 
 import lava.watcher.executor.AlertExecutor;
 import lava.watcher.limiter.AlertLimiter;

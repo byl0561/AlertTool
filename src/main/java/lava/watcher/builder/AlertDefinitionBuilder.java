@@ -1,7 +1,7 @@
 package lava.watcher.builder;
 
-import lava.watcher.alerthandler.AlertHandler;
-import lava.watcher.alerthandler.DefaultAlertHandler;
+import lava.watcher.handler.AlertHandler;
+import lava.watcher.handler.DefaultAlertHandler;
 import lava.watcher.constant.*;
 import lava.watcher.executor.AlertExecutor;
 import lava.watcher.executor.LarkAlertExecutor;

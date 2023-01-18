@@ -1,6 +1,6 @@
 package lava.watcher.builder;
 
-import lava.watcher.alerthandler.AlertHandler;
+import lava.watcher.handler.AlertHandler;
 import lava.watcher.client.AlertWatcherClient;
 import lava.watcher.constant.ValueTypeEnum;
 import lava.watcher.filtration.ReportFiltration;

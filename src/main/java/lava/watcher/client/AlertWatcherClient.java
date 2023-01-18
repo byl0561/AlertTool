@@ -1,6 +1,6 @@
 package lava.watcher.client;
 
-import lava.watcher.alerthandler.AlertHandler;
+import lava.watcher.handler.AlertHandler;
 import lava.watcher.filtration.ReportFiltration;
 import lava.watcher.model.Record;
 import lava.watcher.storage.RecordBase;
